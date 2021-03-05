@@ -1,0 +1,21 @@
+// Custom variables for colors
+$white: #ffffff;
+$gray: #dcdcdc;
+$matBlack: #171717;
+$lightGray: #ececec;
+$lightestGray: #ededed;
+$skyBlue: #d2edee;
+
+// Status chip variables
+$failedStatusBg: #fde2e1;
+$failedStatusColor: #981b1c;
+$successStatusBg: #def7ec;
+$successStatusColor: #03543f;
+$upcomingStatusBg: #fef3c7;
+$upcomingStatusColor: #92400f;
+
+// Table variables
+$tableHeaderFontColor: $matBlack;
+$tableHeaderFontWeight: 700;
+$tableHeaderCellPadding: 15px 20px;
+$tableCellPadding: 20px;

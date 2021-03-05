@@ -1,0 +1,14 @@
+@mixin transition($transition) {
+  -webkit-transition: $transition;
+  -o-transition: $transition;
+  transition: $transition;
+}
+
+@mixin statusChipRules($bgColor, $fontColor) {
+  display: inline-block;
+  background-color: $bgColor;
+  border-radius: 30px;
+  padding: 3px 15px;
+  color: $fontColor;
+  font-weight: bold;
+}

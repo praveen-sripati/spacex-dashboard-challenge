@@ -1,0 +1,16 @@
+@import "../styles/variables";
+@import "../styles/mixins";
+
+.status-container {
+  .success {
+    @include statusChipRules($successStatusBg, $successStatusColor);
+  }
+
+  .failed {
+    @include statusChipRules($failedStatusBg, $failedStatusColor);
+  }
+
+  .upcoming {
+    @include statusChipRules($upcomingStatusBg, $upcomingStatusColor);
+  }
+}

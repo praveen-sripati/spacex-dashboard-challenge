@@ -1,0 +1,13 @@
+@import '../styles/variables';
+
+.spx-header {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  border-bottom: 2px solid $lightGray;
+  a {
+    img {
+      max-width: 250px;
+    }
+  }
+}
