@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'spaceX';
+  launchFilters = [
+    'All Launches',
+    'Upcoming Launches',
+    'Successful Launches',
+    'Failed Launches'
+  ]
 }
