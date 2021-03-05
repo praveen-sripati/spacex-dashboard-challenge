@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatSelectModule} from '@angular/material/select';
+import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { SpxHeaderComponent } from './spx-header/spx-header.component';
-import { SpxTableComponent } from './spx-table/spx-table.component';
+import { SpxTableComponent } from './shared/spx-table/spx-table.component';
 import { StatusChipComponent } from './status-chip/status-chip.component';
-import { SpxFiltersComponent } from './spx-filters/spx-filters.component';
+import { SpxFiltersModule } from './shared/spx-filters/spx-filters.module';
 
 @NgModule({
   declarations: [
@@ -16,9 +17,14 @@ import { SpxFiltersComponent } from './spx-filters/spx-filters.component';
     SpxHeaderComponent,
     SpxTableComponent,
     StatusChipComponent,
-    SpxFiltersComponent,
   ],
-  imports: [BrowserModule, MatSelectModule, MatFormFieldModule],
+  imports: [
+    BrowserAnimationsModule,
+    BrowserModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    SpxFiltersModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

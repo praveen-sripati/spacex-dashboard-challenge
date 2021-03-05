@@ -1,0 +1,38 @@
+@import "../../../styles/variables";
+
+::ng-deep .mat-button,
+.mat-icon-button,
+.mat-stroked-button,
+.mat-flat-button {
+  padding: 3px 10px;
+  font-size: 16px;
+  font-weight: bold;
+  i {
+    &:first-child {
+      margin-bottom: 3px;
+      margin-right: 2px;
+    }
+    &:last-child {
+      margin-left: 2px;
+    }
+    font-size: 20px;
+  }
+}
+
+::ng-deep .simple-select-menu {
+  &.mat-menu-panel {
+    width: 166px;
+    border: 1px solid $gray;
+    box-shadow: 0 0 3px 0px $gray;
+  }
+  .mat-menu-content {
+    &:not(:empty) {
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    .mat-menu-item {
+      line-height: 45px;
+      height: 45px;
+    }
+  }
+}
