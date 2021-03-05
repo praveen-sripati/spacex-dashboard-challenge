@@ -8,7 +8,8 @@
   background-color: $white;
   border: 1px solid $gray;
   box-shadow: 0 0 3px 0px $gray;
-  border-radius: 5px;
+  border-radius: 8px;
+  border-collapse: separate;
   thead,
   tbody,
   tfoot {

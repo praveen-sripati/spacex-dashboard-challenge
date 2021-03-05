@@ -1,5 +1,28 @@
+@import './styles/variables';
+
 .table-container {
   max-width: 70%;
   width: 100%;
   margin: 40px auto;
+}
+
+::ng-deep .spx-pagination {
+  justify-content: flex-end;
+  .page-link {
+    color: $matBlack;
+    padding: 11px 15px;
+  }
+
+  .page-item:first-child {
+    .page-link {
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+  }
+  .page-item:last-child {
+    .page-link {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+  }
 }

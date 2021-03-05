@@ -3,5 +3,16 @@
   <section class="table-container">
     <app-simple-select [selectOptions]="launchFilters"></app-simple-select>
     <app-spx-table></app-spx-table>
+    <pagination
+      class="spx-pagination"
+      [totalItems]="bigTotalItems"
+      [(ngModel)]="bigCurrentPage"
+      [boundaryLinks]="true"
+      [maxSize]="maxSize"
+      previousText="&lsaquo;"
+      nextText="&rsaquo;"
+      firstText="&laquo;"
+      lastText="&raquo;"
+    ></pagination>
   </section>
 </div>
