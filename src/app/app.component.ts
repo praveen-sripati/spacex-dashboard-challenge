@@ -11,11 +11,11 @@ import { DataService } from './data.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
+  totalItems = 0;
   maxSize = 5;
-  bigTotalItems = 175;
-  bigCurrentPage = 1;
+  currentPage = 1;
   selectedOption = 'All Launches';
-  allLaunches: Launch[];
+  launchesPerPage: Launch[];
   title = 'spaceX';
   launchFilters = [
     'All Launches',
@@ -26,10 +26,11 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService) {}
 
   ngOnInit() {
-    this.dataService.getAllLaunches().subscribe((data) => {
+    this.dataService.getLaunches(1).subscribe((data) => {
       if (data) {
-        this.allLaunches = data['docs'];
-        console.log(this.allLaunches)
+        this.launchesPerPage = data['docs'];
+        this.totalItems = data['totalDocs'];
+        console.log(data)
       }
     });
   }
@@ -41,5 +42,14 @@ export class AppComponent implements OnInit, OnDestroy {
 
   onSelectedOption(selectedOption) {
     this.selectedOption = selectedOption;
+  }
+
+  pageChanged(e: any) {
+    this.dataService.getLaunches(e.page).subscribe((data) => {
+      if (data) {
+        this.launchesPerPage = data['docs'];
+        console.log(data)
+      }
+    });
   }
 }

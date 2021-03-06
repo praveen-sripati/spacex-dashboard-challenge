@@ -25,12 +25,13 @@ export class DataService {
     return throwError(errorMessage);
   }
 
-  getAllLaunches() {
+  getLaunches(pageNumber: number) {
     return this.httpClient.post(
       this.API_BASE_URL  + '/launches/query',
       {
         query: {},
         options: {
+          "page": pageNumber,
           "select": {
             "name": 1,
             "date_utc": 1,
