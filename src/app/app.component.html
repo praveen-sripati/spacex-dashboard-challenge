@@ -1,10 +1,12 @@
 <div>
   <app-spx-header></app-spx-header>
   <section class="table-container">
-    <app-simple-select
-      [selectOptions]="launchFilters"
-      (onSelected)="onSelectedOption($event)"
-    ></app-simple-select>
+    <div class="d-flex justify-content-end mb-3">
+      <app-simple-select
+        [selectOptions]="launchFilters"
+        (onSelected)="onSelectedOption($event)"
+      ></app-simple-select>
+    </div>
     <app-spx-table
       [tableHeaders]="tableHeaders"
       [data]="launchesPerPage"
