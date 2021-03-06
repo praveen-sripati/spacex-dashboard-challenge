@@ -13,6 +13,7 @@ export class SimpleSelectComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    this.selectedOption = sessionStorage.getItem("selectedOption");
   }
 
   onSelect(option) {

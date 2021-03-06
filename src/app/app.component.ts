@@ -44,14 +44,8 @@ export class AppComponent implements OnInit, OnDestroy {
     if (sessionStorage.getItem("selectedOption")) {
       console.log(sessionStorage.getItem("selectedOption"));
       this.selectedOption = sessionStorage.getItem("selectedOption");
-      console.log(this.selectedOption);
     }
-    this.dataService.getLaunches(1).subscribe((data) => {
-      if (data) {
-        this.launchesPerPage = data['docs'];
-        this.totalItems = data['totalDocs'];
-      }
-    });
+    this.getLaunchesData(this.selectedOption);
   }
 
   ngOnDestroy() {
