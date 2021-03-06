@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -23,6 +24,7 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
   ],
   imports: [
     BrowserAnimationsModule,
+    HttpClientModule,
     BrowserModule,
     MatSelectModule,
     MatFormFieldModule,

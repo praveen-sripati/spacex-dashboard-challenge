@@ -12,22 +12,22 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
-      <td data-title="ID">1</td>
-      <td data-title="Name">Material Design Color Palette</td>
-      <td data-title="Link">
-        <a
-          href="https://github.com/zavoloklom/material-design-color-palette"
-          target="_blank"
-          >GitHub</a
-        >
+    <tr *ngFor="let item of data; let i = index;">
+      <td>{{i+1}}</td>
+      <td>{{item.date_utc}}</td>
+      <td>{{item.launchpad.name}}</td>
+      <td>{{item.name}}</td>
+      <td>{{item.payloads[0].orbit}}</td>
+      <td *ngIf="item.failures.length > 0">
+        <app-status-chip [status]="'failed'"></app-status-chip>
       </td>
-      <td data-title="Status">Completed</td>
-      <td data-title="Status">Completed</td>
-      <td data-title="Status">
+      <td *ngIf="item.upcoming">
         <app-status-chip [status]="'upcoming'"></app-status-chip>
       </td>
-      <td data-title="Status">Completed</td>
+      <td *ngIf="item.success">
+        <app-status-chip [status]="'success'"></app-status-chip>
+      </td>
+      <td>{{item.rocket.name}}</td>
     </tr>
   </tbody>
 </table>

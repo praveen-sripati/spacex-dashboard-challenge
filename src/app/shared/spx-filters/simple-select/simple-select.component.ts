@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-simple-select',
@@ -7,10 +7,16 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SimpleSelectComponent implements OnInit {
   @Input() selectOptions: string[];
+  @Output() onSelected = new EventEmitter<string>();
+  selectedOption: string = 'All Launches';
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  onSelect(option) {
+    this.selectedOption = option;
+    this.onSelected.emit(option);
+  }
 }

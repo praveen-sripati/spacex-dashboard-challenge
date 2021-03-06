@@ -1,8 +1,8 @@
 <button mat-flat-button [matMenuTriggerFor]="menu" disableRipple>
   <i class="material-icons"> filter_list </i>
-  All Launches
+  {{selectedOption}}
   <i class="material-icons"> keyboard_arrow_down </i>
 </button>
 <mat-menu #menu="matMenu" class="simple-select-menu">
-  <button mat-menu-item *ngFor="let option of selectOptions">{{option}}</button>
+  <button mat-menu-item (click)="onSelect(option)" *ngFor="let option of selectOptions">{{option}}</button>
 </mat-menu>

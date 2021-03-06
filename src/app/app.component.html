@@ -1,8 +1,8 @@
 <div>
   <app-spx-header></app-spx-header>
   <section class="table-container">
-    <app-simple-select [selectOptions]="launchFilters"></app-simple-select>
-    <app-spx-table></app-spx-table>
+    <app-simple-select [selectOptions]="launchFilters" (onSelected)="onSelectedOption($event)"></app-simple-select>
+    <app-spx-table [data]="allLaunches"></app-spx-table>
     <pagination
       class="spx-pagination"
       [totalItems]="bigTotalItems"

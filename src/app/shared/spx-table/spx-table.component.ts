@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-spx-table',
@@ -6,6 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spx-table.component.scss']
 })
 export class SpxTableComponent implements OnInit {
+  @Input() data: any[];
 
   constructor() { }
 
