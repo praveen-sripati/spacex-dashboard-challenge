@@ -10,6 +10,15 @@ import { DataService } from './data.service';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
+  tableHeaders = [
+    'No:',
+    'Launched',
+    'Location',
+    'Mission',
+    'Orbit',
+    'Launch Status',
+    'Rockets'
+  ]
   destroy$: Subject<boolean> = new Subject<boolean>();
   totalItems = 0;
   maxSize = 5;

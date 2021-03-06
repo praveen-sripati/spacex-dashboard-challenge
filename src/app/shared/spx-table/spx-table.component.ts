@@ -6,6 +6,7 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./spx-table.component.scss']
 })
 export class SpxTableComponent implements OnInit {
+  @Input() tableHeaders: string[];
   @Input() data: any[];
 
   constructor() { }
