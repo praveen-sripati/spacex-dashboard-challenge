@@ -24,6 +24,7 @@
         transition: transition(all 0.3s ease);
       }
       th {
+        font-weight: 600;
         padding: $tableHeaderCellPadding;
       }
     }
@@ -33,8 +34,6 @@
     border-color: $lightGray;
   }
   thead > tr > th {
-    font-weight: $tableHeaderFontWeight;
-    color: $tableHeaderFontColor;
     vertical-align: bottom;
   }
 }
