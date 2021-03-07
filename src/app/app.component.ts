@@ -170,17 +170,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   getInputSize(datepicker: HTMLInputElement) {
     switch (datepicker.value) {
-      case 'Today':
-        return 120;
-      case 'Yesterday':
+      case 'Past week':
         return 140;
-      case 'Last 7 Days':
+      case 'Past month':
         return 140;
-      case 'This Month':
+      case 'Past 3 months':
+        return 150;
+      case 'Past 6 months':
+        return 150;
+      case 'Past year':
         return 140;
-      case 'Last Month':
-        return 140;
-      case 'Last 30 Days':
+      case 'Past 2 years':
         return 150;
     }
   }

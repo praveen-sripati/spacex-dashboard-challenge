@@ -70,7 +70,15 @@
         &:hover {
           box-shadow: 0 0 3px 0px $gray;
         }
-        &:first-child {
+        &.clear {
+          position: absolute;
+          left: 15px;
+          color: $errorColor;
+          svg {
+            display: none;
+          }
+        }
+        &:nth-child(2) {
           margin-right: 13px;
           background-color: $white;
         }
