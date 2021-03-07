@@ -1,7 +1,6 @@
 import {
   Component,
   DoCheck,
-  ElementRef,
   OnDestroy,
   OnInit,
   ViewChild,
@@ -17,7 +16,7 @@ import { DataService } from './data.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, OnDestroy, DoCheck {
+export class AppComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   // Daterange Picker variables
@@ -27,19 +26,14 @@ export class AppComponent implements OnInit, OnDestroy, DoCheck {
   selected: any;
   alwaysShowCalendars: boolean;
   localeConfig = {
-    format: 'MM/DD/YYYY', // could be 'YYYY-MM-DDTHH:mm:ss.SSSSZ'
-    displayFormat: 'DD MMM y', // default is format value
-    direction: 'ltr', // could be rtl
-    separator: ' To ', // default is ' - '
-    cancelLabel: 'Cancel', // detault is 'Cancel'
+    format: 'MM/DD/YYYY',
+    displayFormat: 'DD MMM y',
+    direction: 'ltr',
+    separator: ' To ',
+    cancelLabel: 'Cancel',
     customRangeLabel: 'Custom range',
   };
   ranges: any = {
-    // 'Today': [moment(), moment()],
-    // 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-    // 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-    // 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-    // 'This Month': [moment().startOf('month'), moment().endOf('month')],
     'Past week': [
       moment().subtract(1, 'week').startOf('week'),
       moment().subtract(1, 'week').endOf('week'),
@@ -111,13 +105,6 @@ export class AppComponent implements OnInit, OnDestroy, DoCheck {
     this.destroy$.unsubscribe();
   }
 
-  ngDoCheck() {
-    if (this.selected) {
-      this.startDate = null;
-      this.endDate = null;
-    }
-  }
-
   onSelectedOption(selectedOption) {
     this.selectedOption = selectedOption;
     sessionStorage.setItem('selectedOption', this.selectedOption);
@@ -182,6 +169,8 @@ export class AppComponent implements OnInit, OnDestroy, DoCheck {
   }
 
   getLaunchesData(selectedOption) {
+    this.startDate = null;
+    this.endDate = null;
     if (selectedOption === 'All Launches') {
       this.dataService.getLaunches(1).subscribe((data) => {
         this.setLaunchFields(data);
