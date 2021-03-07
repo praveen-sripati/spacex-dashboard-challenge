@@ -16,7 +16,10 @@
       border: none;
       cursor: pointer;
       height: 100%;
-      padding-left: 35px;
+      padding-left: 30px;
+      width: 235px;
+      color: $matBlack;
+      font-weight: 600;
       &:focus {
         outline: none;
       }
@@ -24,13 +27,15 @@
     .date-range-icon {
       position: absolute;
       left: 0;
-      top: 8px;
+      top: 9px;
       cursor: pointer;
+      font-size: 22px;
     }
     .arrow-down-icon {
       position: absolute;
       top: 9px;
       cursor: pointer;
+      font-size: 22px;
     }
   }
 }

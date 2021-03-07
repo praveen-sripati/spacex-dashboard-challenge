@@ -13,7 +13,9 @@ export class SimpleSelectComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.selectedOption = sessionStorage.getItem("selectedOption");
+    if (sessionStorage.getItem("selectedOption")) {
+      this.selectedOption = sessionStorage.getItem("selectedOption");
+    }
   }
 
   onSelect(option) {

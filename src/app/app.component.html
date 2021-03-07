@@ -5,15 +5,19 @@
       <div class="date-picker-container">
         <input
           class="date-picker"
-          placeholder="something"
+          type="text"
+          [ngStyle]="{'width.px': getInputSize(dtpicker)}"
           ngxDaterangepickerMd
           [(ngModel)]="selected"
           [showCustomRangeLabel]="true"
+          [showRangeLabelOnInput]="true"
           [alwaysShowCalendars]="true"
           [ranges]="ranges"
           [linkedCalendars]="true"
-          [isInvalidDate]="isInvalidDate"
-          showCancel="true"
+          [isInvalidDate] = "isInvalidDate"
+          [showCancel]="true"
+          placeholder="Select a Launch Date"
+          #dtpicker
           readonly
         />
         <i class="material-icons date-range-icon ngx-daterangepicker-action" (click)="openDatepicker()"> date_range </i>

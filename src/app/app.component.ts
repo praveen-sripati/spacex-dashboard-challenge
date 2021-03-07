@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import * as moment from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { Subject } from 'rxjs';
@@ -12,10 +18,11 @@ import { DataService } from './data.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
-  @ViewChild(DaterangepickerDirective, { static: false })
-  pickerDirective: DaterangepickerDirective;
 
   // Daterange Picker variables
+  @ViewChild(DaterangepickerDirective, { static: false })
+  pickerDirective: DaterangepickerDirective;
+  inputSizes: {};
   selected: any;
   alwaysShowCalendars: boolean;
   ranges: any = {
@@ -138,6 +145,23 @@ export class AppComponent implements OnInit, OnDestroy {
     if (data) {
       this.launchesPerPage = data['docs'];
       this.totalItems = data['totalDocs'];
+    }
+  }
+
+  getInputSize(datepicker: HTMLInputElement) {
+    switch (datepicker.value) {
+      case 'Today':
+        return 120
+      case 'Yesterday':
+        return 140
+      case 'Last 7 Days':
+        return 140
+      case 'This Month':
+        return 140
+      case 'Last Month':
+        return 140
+      case 'Last 30 Days':
+        return 150
     }
   }
 
