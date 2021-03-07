@@ -34,7 +34,7 @@ export class AppComponent implements OnInit, OnDestroy {
     customRangeLabel: 'Custom range',
   };
   ranges: any = {
-    'Today': [moment, moment()],
+    'Today': [moment(), moment()],
     'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
     'Last 7 Days': [moment().subtract(6, 'days'), moment()],
     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
@@ -42,8 +42,6 @@ export class AppComponent implements OnInit, OnDestroy {
     'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
   }
   dateLimit: number = 30;
-  minDate: moment.Moment = moment().subtract(20, 'days');
-  maxDate: moment.Moment = moment().add(2, 'month');
 
   // Table Headers
   tableHeaders = [
@@ -57,7 +55,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ];
 
   // Pagination Variables
-  totalItems = 0;
+  totalLaunches = 0;
   maxSize = 5;
   currentPage = 1;
   launchesPerPage: Launch[];
@@ -77,7 +75,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     if (sessionStorage.getItem('selectedOption')) {
-      console.log(sessionStorage.getItem('selectedOption'));
       this.selectedOption = sessionStorage.getItem('selectedOption');
     }
     this.getLaunchesData(this.selectedOption);
@@ -159,7 +156,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   datesUpdated(e: any) {
     if (e.startDate && e.endDate) {
-      console.log(e.startDate.toISOString());
       this.dataService.getLaunchesOnSelectedDates(1, e.startDate.toISOString(), e.endDate.toISOString()).subscribe( data => {
         this.setLaunchFields(data);
       })
@@ -169,7 +165,7 @@ export class AppComponent implements OnInit, OnDestroy {
   setLaunchFields(data) {
     if (data) {
       this.launchesPerPage = data['docs'];
-      this.totalItems = data['totalDocs'];
+      this.totalLaunches = data['totalDocs'];
     }
   }
 

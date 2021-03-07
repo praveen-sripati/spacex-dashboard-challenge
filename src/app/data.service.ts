@@ -13,6 +13,9 @@ import { retry, catchError } from 'rxjs/operators';
 export class DataService {
   private API_BASE_URL = 'https://api.spacexdata.com/v4';
   commonOptions = {
+    sort: {
+      date_utc: 1
+    },
     select: {
       name: 1,
       date_utc: 1,
@@ -150,8 +153,8 @@ export class DataService {
         {
           query: {
             date_utc: {
-              $gte: "2017-06-22T00:00:00.000Z",
-              $lte: "2017-06-25T00:00:00.000Z"
+              $gte: startDate,
+              $lte: endDate
             }
           },
           options: {

@@ -17,8 +17,6 @@
           [showCancel]="true"
           [locale]="localeConfig"
           [dateLimit]="dateLimit"
-          [minDate]="minDate"
-          [maxDate]="maxDate"
           placeholder="Select a Launch Date"
           (datesUpdated)="datesUpdated($event)"
           #dtpicker
@@ -39,7 +37,7 @@
     ></app-spx-table>
     <pagination
       class="spx-pagination"
-      [totalItems]="totalItems"
+      [totalItems]="totalLaunches"
       [(ngModel)]="currentPage"
       [boundaryLinks]="true"
       [maxSize]="maxSize"
