@@ -2,13 +2,7 @@
 <table id="table" class="table">
   <thead>
     <tr>
-      <th>No:</th>
-      <th>Launched (UTC)</th>
-      <th>Location</th>
-      <th>Mission</th>
-      <th>Orbit</th>
-      <th>Launch Status</th>
-      <th>Rockets</th>
+      <th *ngFor="let item of tableHeaders"></th>
     </tr>
   </thead>
   <tbody>
