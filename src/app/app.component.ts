@@ -34,14 +34,21 @@ export class AppComponent implements OnInit, OnDestroy {
     customRangeLabel: 'Custom range',
   };
   ranges: any = {
-    'Today': [moment(), moment()],
-    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-    'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-    'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-    'This Month': [moment().startOf('month'), moment().endOf('month')],
-    'Past Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+    // 'Today': [moment(), moment()],
+    // 'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+    // 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
+    // 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+    // 'This Month': [moment().startOf('month'), moment().endOf('month')],
+    'Past week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
+    'Past month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+    'Past 3 months': [moment().subtract(3, 'months').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+    'Past 6 months': [moment().subtract(6, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+    'Past year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'month').endOf('month')],
+    'Past 2 years': [moment().subtract(2, 'year').startOf('year'), moment().subtract(1, 'month').endOf('month')],
   }
   dateLimit: number = 30;
+  startDate: Date;
+  endDate: Date;
 
   // Table Headers
   tableHeaders = [
@@ -93,24 +100,48 @@ export class AppComponent implements OnInit, OnDestroy {
 
   pageChanged(e: any) {
     if (this.selectedOption === 'All Launches') {
-      this.dataService.getLaunches(e.page).subscribe(data => {
-        this.setLaunchFields(data);
-      });
+        if(this.startDate && this.endDate) {
+          this.dataService.getLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
+            this.setLaunchFields(data);
+          });
+        } else {
+          this.dataService.getLaunches(e.page).subscribe(data => {
+            this.setLaunchFields(data);
+          });
+        }
     }
     if (this.selectedOption === 'Upcoming Launches') {
-      this.dataService.getUpcomingLaunches(e.page).subscribe(data => {
-        this.setLaunchFields(data);
-      });
+      if (this.startDate && this.endDate) {
+        this.dataService.getUpcomingLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
+          this.setLaunchFields(data);
+        });
+      } else {
+        this.dataService.getUpcomingLaunches(e.page).subscribe(data => {
+          this.setLaunchFields(data);
+        });
+      }
     }
     if (this.selectedOption === 'Successful Launches') {
-      this.dataService.getSuccessfulLaunches(e.page).subscribe(data => {
-        this.setLaunchFields(data);
-      });
+      if (this.startDate && this.endDate) {
+        this.dataService.getSuccessfulLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
+          this.setLaunchFields(data);
+        });
+      } else {
+        this.dataService.getSuccessfulLaunches(e.page).subscribe(data => {
+          this.setLaunchFields(data);
+        });
+      }
     }
     if (this.selectedOption === 'Failed Launches') {
-      this.dataService.getFailedLaunches(e.page).subscribe(data => {
-        this.setLaunchFields(data);
-      });
+      if (this.selectedOption) {
+        this.dataService.getFailedLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
+          this.setLaunchFields(data);
+        });
+      } else {
+        this.dataService.getFailedLaunches(e.page).subscribe(data => {
+          this.setLaunchFields(data);
+        });
+      }
     }
   }
 
@@ -156,7 +187,11 @@ export class AppComponent implements OnInit, OnDestroy {
 
   datesUpdated(e: any) {
     if (e.startDate && e.endDate) {
-      this.dataService.getLaunchesOnSelectedDates(1, e.startDate.toISOString(), e.endDate.toISOString(), this.selectedOption).subscribe( data => {
+      this.startDate = e.startDate.toISOString();
+      this.endDate = e.endDate.toISOString();
+      console.log(this.startDate, this.endDate);
+      this.dataService.getLaunchesOnSelectedDates(this.currentPage, e.startDate.toISOString(), e.endDate.toISOString(), this.selectedOption).subscribe( data => {
+        console.log(data);
         this.setLaunchFields(data);
       })
     }
