@@ -1,5 +1,6 @@
 import {
   Component,
+  DoCheck,
   ElementRef,
   OnDestroy,
   OnInit,
@@ -16,7 +17,7 @@ import { DataService } from './data.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent implements OnInit, OnDestroy, DoCheck {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   // Daterange Picker variables
@@ -39,13 +40,31 @@ export class AppComponent implements OnInit, OnDestroy {
     // 'Last 7 Days': [moment().subtract(6, 'days'), moment()],
     // 'Last 30 Days': [moment().subtract(29, 'days'), moment()],
     // 'This Month': [moment().startOf('month'), moment().endOf('month')],
-    'Past week': [moment().subtract(1, 'week').startOf('week'), moment().subtract(1, 'week').endOf('week')],
-    'Past month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-    'Past 3 months': [moment().subtract(3, 'months').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-    'Past 6 months': [moment().subtract(6, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-    'Past year': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'month').endOf('month')],
-    'Past 2 years': [moment().subtract(2, 'year').startOf('year'), moment().subtract(1, 'month').endOf('month')],
-  }
+    'Past week': [
+      moment().subtract(1, 'week').startOf('week'),
+      moment().subtract(1, 'week').endOf('week'),
+    ],
+    'Past month': [
+      moment().subtract(1, 'month').startOf('month'),
+      moment().subtract(1, 'month').endOf('month'),
+    ],
+    'Past 3 months': [
+      moment().subtract(3, 'months').startOf('month'),
+      moment().subtract(1, 'month').endOf('month'),
+    ],
+    'Past 6 months': [
+      moment().subtract(6, 'month').startOf('month'),
+      moment().subtract(1, 'month').endOf('month'),
+    ],
+    'Past year': [
+      moment().subtract(1, 'year').startOf('year'),
+      moment().subtract(1, 'month').endOf('month'),
+    ],
+    'Past 2 years': [
+      moment().subtract(2, 'year').startOf('year'),
+      moment().subtract(1, 'month').endOf('month'),
+    ],
+  };
   dateLimit: number = 30;
   startDate: Date;
   endDate: Date;
@@ -92,6 +111,13 @@ export class AppComponent implements OnInit, OnDestroy {
     this.destroy$.unsubscribe();
   }
 
+  ngDoCheck() {
+    if (this.selected) {
+      this.startDate = null;
+      this.endDate = null;
+    }
+  }
+
   onSelectedOption(selectedOption) {
     this.selectedOption = selectedOption;
     sessionStorage.setItem('selectedOption', this.selectedOption);
@@ -100,45 +126,55 @@ export class AppComponent implements OnInit, OnDestroy {
 
   pageChanged(e: any) {
     if (this.selectedOption === 'All Launches') {
-        if(this.startDate && this.endDate) {
-          this.dataService.getLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
+      if (this.startDate && this.endDate) {
+        this.dataService
+          .getLaunches(e.page, this.startDate, this.endDate)
+          .subscribe((data) => {
             this.setLaunchFields(data);
           });
-        } else {
-          this.dataService.getLaunches(e.page).subscribe(data => {
-            this.setLaunchFields(data);
-          });
-        }
+      } else {
+        console.log('normal');
+        this.dataService.getLaunches(e.page).subscribe((data) => {
+          this.setLaunchFields(data);
+        });
+      }
     }
     if (this.selectedOption === 'Upcoming Launches') {
       if (this.startDate && this.endDate) {
-        this.dataService.getUpcomingLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
-          this.setLaunchFields(data);
-        });
+        this.dataService
+          .getUpcomingLaunches(e.page, this.startDate, this.endDate)
+          .subscribe((data) => {
+            this.setLaunchFields(data);
+          });
       } else {
-        this.dataService.getUpcomingLaunches(e.page).subscribe(data => {
+        this.dataService.getUpcomingLaunches(e.page).subscribe((data) => {
           this.setLaunchFields(data);
         });
       }
     }
     if (this.selectedOption === 'Successful Launches') {
       if (this.startDate && this.endDate) {
-        this.dataService.getSuccessfulLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
-          this.setLaunchFields(data);
-        });
+        this.dataService
+          .getSuccessfulLaunches(e.page, this.startDate, this.endDate)
+          .subscribe((data) => {
+            this.setLaunchFields(data);
+          });
       } else {
-        this.dataService.getSuccessfulLaunches(e.page).subscribe(data => {
+        console.log('normal');
+        this.dataService.getSuccessfulLaunches(e.page).subscribe((data) => {
           this.setLaunchFields(data);
         });
       }
     }
     if (this.selectedOption === 'Failed Launches') {
       if (this.selectedOption) {
-        this.dataService.getFailedLaunches(e.page, this.startDate, this.endDate).subscribe(data => {
-          this.setLaunchFields(data);
-        });
+        this.dataService
+          .getFailedLaunches(e.page, this.startDate, this.endDate)
+          .subscribe((data) => {
+            this.setLaunchFields(data);
+          });
       } else {
-        this.dataService.getFailedLaunches(e.page).subscribe(data => {
+        this.dataService.getFailedLaunches(e.page).subscribe((data) => {
           this.setLaunchFields(data);
         });
       }
@@ -147,22 +183,22 @@ export class AppComponent implements OnInit, OnDestroy {
 
   getLaunchesData(selectedOption) {
     if (selectedOption === 'All Launches') {
-      this.dataService.getLaunches(1).subscribe(data => {
+      this.dataService.getLaunches(1).subscribe((data) => {
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Upcoming Launches') {
-      this.dataService.getUpcomingLaunches(1).subscribe(data => {
+      this.dataService.getUpcomingLaunches(1).subscribe((data) => {
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Successful Launches') {
-      this.dataService.getSuccessfulLaunches(1).subscribe(data => {
+      this.dataService.getSuccessfulLaunches(1).subscribe((data) => {
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Failed Launches') {
-      this.dataService.getFailedLaunches(1).subscribe(data => {
+      this.dataService.getFailedLaunches(1).subscribe((data) => {
         this.setLaunchFields(data);
       });
     }
@@ -190,10 +226,17 @@ export class AppComponent implements OnInit, OnDestroy {
       this.startDate = e.startDate.toISOString();
       this.endDate = e.endDate.toISOString();
       console.log(this.startDate, this.endDate);
-      this.dataService.getLaunchesOnSelectedDates(this.currentPage, e.startDate.toISOString(), e.endDate.toISOString(), this.selectedOption).subscribe( data => {
-        console.log(data);
-        this.setLaunchFields(data);
-      })
+      this.dataService
+        .getLaunchesOnSelectedDates(
+          this.currentPage,
+          e.startDate.toISOString(),
+          e.endDate.toISOString(),
+          this.selectedOption
+        )
+        .subscribe((data) => {
+          console.log(data);
+          this.setLaunchFields(data);
+        });
     }
   }
 
@@ -203,7 +246,6 @@ export class AppComponent implements OnInit, OnDestroy {
       this.totalLaunches = data['totalDocs'];
     }
   }
-
 
   openDatepicker() {
     this.pickerDirective.open();
