@@ -156,7 +156,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   datesUpdated(e: any) {
     if (e.startDate && e.endDate) {
-      this.dataService.getLaunchesOnSelectedDates(1, e.startDate.toISOString(), e.endDate.toISOString()).subscribe( data => {
+      this.dataService.getLaunchesOnSelectedDates(1, e.startDate.toISOString(), e.endDate.toISOString(), this.selectedOption).subscribe( data => {
         this.setLaunchFields(data);
       })
     }
