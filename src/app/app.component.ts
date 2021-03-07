@@ -60,8 +60,8 @@ export class AppComponent implements OnInit, OnDestroy {
     ],
   };
   dateLimit: number = 30;
-  startDate: Date;
-  endDate: Date;
+  // startDate: Date;
+  // endDate: Date;
 
   // Table Headers
   tableHeaders = [
@@ -113,81 +113,52 @@ export class AppComponent implements OnInit, OnDestroy {
 
   pageChanged(e: any) {
     if (this.selectedOption === 'All Launches') {
-      if (this.startDate && this.endDate) {
-        this.dataService
-          .getLaunches(e.page, this.startDate, this.endDate)
-          .subscribe((data) => {
-            this.setLaunchFields(data);
-          });
-      } else {
-        console.log('normal');
-        this.dataService.getLaunches(e.page).subscribe((data) => {
-          this.setLaunchFields(data);
-        });
-      }
+      this.dataService.getLaunches(e.page, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        this.setLaunchFields(data);
+      });
     }
     if (this.selectedOption === 'Upcoming Launches') {
-      if (this.startDate && this.endDate) {
-        this.dataService
-          .getUpcomingLaunches(e.page, this.startDate, this.endDate)
-          .subscribe((data) => {
-            this.setLaunchFields(data);
-          });
-      } else {
-        this.dataService.getUpcomingLaunches(e.page).subscribe((data) => {
-          this.setLaunchFields(data);
-        });
-      }
+      this.dataService.getUpcomingLaunches(e.page, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        this.setLaunchFields(data);
+      });
     }
     if (this.selectedOption === 'Successful Launches') {
-      if (this.startDate && this.endDate) {
-        this.dataService
-          .getSuccessfulLaunches(e.page, this.startDate, this.endDate)
-          .subscribe((data) => {
-            this.setLaunchFields(data);
-          });
-      } else {
-        console.log('normal');
-        this.dataService.getSuccessfulLaunches(e.page).subscribe((data) => {
-          this.setLaunchFields(data);
-        });
-      }
+      this.dataService.getSuccessfulLaunches(e.page, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        this.setLaunchFields(data);
+      });
     }
     if (this.selectedOption === 'Failed Launches') {
-      if (this.selectedOption) {
-        this.dataService
-          .getFailedLaunches(e.page, this.startDate, this.endDate)
-          .subscribe((data) => {
-            this.setLaunchFields(data);
-          });
-      } else {
-        this.dataService.getFailedLaunches(e.page).subscribe((data) => {
-          this.setLaunchFields(data);
-        });
-      }
+      this.dataService.getFailedLaunches(e.page, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        this.setLaunchFields(data);
+      });
     }
   }
 
   getLaunchesData(selectedOption) {
-    this.startDate = null;
-    this.endDate = null;
     if (selectedOption === 'All Launches') {
-      this.dataService.getLaunches(1).subscribe((data) => {
+
+      this.dataService.getLaunches(1, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        console.log(data)
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Upcoming Launches') {
-      this.dataService.getUpcomingLaunches(1).subscribe((data) => {
+
+      this.dataService.getUpcomingLaunches(1, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        console.log(data)
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Successful Launches') {
-      this.dataService.getSuccessfulLaunches(1).subscribe((data) => {
+
+      this.dataService.getSuccessfulLaunches(1, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        console.log(data)
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Failed Launches') {
-      this.dataService.getFailedLaunches(1).subscribe((data) => {
+      this.dataService.getFailedLaunches(1, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        console.log(data)
         this.setLaunchFields(data);
       });
     }
@@ -211,22 +182,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   datesUpdated(e: any) {
-    if (e.startDate && e.endDate) {
-      this.startDate = e.startDate.toISOString();
-      this.endDate = e.endDate.toISOString();
-      console.log(this.startDate, this.endDate);
-      this.dataService
-        .getLaunchesOnSelectedDates(
-          this.currentPage,
-          e.startDate.toISOString(),
-          e.endDate.toISOString(),
-          this.selectedOption
-        )
-        .subscribe((data) => {
-          console.log(data);
-          this.setLaunchFields(data);
-        });
-    }
+    this.getLaunchesData(this.selectedOption);
   }
 
   setLaunchFields(data) {
