@@ -172,29 +172,6 @@ export class DataService {
     endDate: Date,
     selectedOption: string
   ) {
-    // return this.httpClient
-    //   .post(
-    //     this.API_BASE_URL + '/launches/query',
-    //     {
-    //       query: {
-    //         date_utc: {
-    //           $gte: startDate,
-    //           $lte: endDate,
-    //         },
-    //       },
-    //       options: {
-    //         page: pageNumber,
-    //         ...this.commonOptions,
-    //       },
-    //     },
-    //     {
-    //       headers: new HttpHeaders({
-    //         'Content-Type': 'application/json',
-    //       }),
-    //     }
-    //   )
-    //   .pipe(retry(3), catchError(this.handleError));
-    console.log(selectedOption);
     switch (selectedOption) {
       case 'All Launches':
         return this.getLaunches(pageNumber, startDate, endDate);
