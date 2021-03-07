@@ -142,4 +142,29 @@ export class DataService {
       )
       .pipe(retry(3), catchError(this.handleError));
   }
+
+  getLaunchesOnSelectedDates(pageNumber: number, startDate: Date, endDate: Date) {
+    return this.httpClient
+      .post(
+        this.API_BASE_URL + '/launches/query',
+        {
+          query: {
+            date_utc: {
+              $gte: "2017-06-22T00:00:00.000Z",
+              $lte: "2017-06-25T00:00:00.000Z"
+            }
+          },
+          options: {
+            page: pageNumber,
+            ...this.commonOptions,
+          },
+        },
+        {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+          }),
+        }
+      )
+      .pipe(retry(3), catchError(this.handleError));
+  }
 }

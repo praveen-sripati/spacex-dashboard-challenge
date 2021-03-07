@@ -12,18 +12,22 @@
           [showCustomRangeLabel]="true"
           [showRangeLabelOnInput]="true"
           [alwaysShowCalendars]="true"
-          [ranges]="ranges"
           [linkedCalendars]="true"
-          [isInvalidDate] = "isInvalidDate"
+          [ranges]="ranges"
           [showCancel]="true"
           [locale]="localeConfig"
+          [dateLimit]="dateLimit"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
           placeholder="Select a Launch Date"
+          (datesUpdated)="datesUpdated($event)"
           #dtpicker
           readonly
         />
         <i class="material-icons date-range-icon ngx-daterangepicker-action" (click)="openDatepicker()"> date_range </i>
         <i class="material-icons arrow-down-icon ngx-daterangepicker-action" (click)="openDatepicker()"> keyboard_arrow_down </i>
       </div>
+      {{selected | json}}
       <app-simple-select
         [selectOptions]="launchFilters"
         (onSelected)="onSelectedOption($event)"

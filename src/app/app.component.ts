@@ -34,25 +34,16 @@ export class AppComponent implements OnInit, OnDestroy {
     customRangeLabel: 'Custom range',
   };
   ranges: any = {
-    Today: [moment(), moment()],
-    Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+    'Today': [moment, moment()],
+    'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
     'Last 7 Days': [moment().subtract(6, 'days'), moment()],
     'Last 30 Days': [moment().subtract(29, 'days'), moment()],
     'This Month': [moment().startOf('month'), moment().endOf('month')],
-    'Last Month': [
-      moment().subtract(1, 'month').startOf('month'),
-      moment().subtract(1, 'month').endOf('month'),
-    ],
-  };
-  invalidDates: moment.Moment[] = [
-    moment().add(2, 'days'),
-    moment().add(3, 'days'),
-    moment().add(5, 'days'),
-  ];
-
-  isInvalidDate = (m: moment.Moment) => {
-    return this.invalidDates.some((d) => d.isSame(m, 'day'));
-  };
+    'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+  }
+  dateLimit: number = 30;
+  minDate: moment.Moment = moment().subtract(20, 'days');
+  maxDate: moment.Moment = moment().add(2, 'month');
 
   // Table Headers
   tableHeaders = [
@@ -105,22 +96,22 @@ export class AppComponent implements OnInit, OnDestroy {
 
   pageChanged(e: any) {
     if (this.selectedOption === 'All Launches') {
-      this.dataService.getLaunches(e.page).subscribe((data) => {
+      this.dataService.getLaunches(e.page).subscribe(data => {
         this.setLaunchFields(data);
       });
     }
     if (this.selectedOption === 'Upcoming Launches') {
-      this.dataService.getUpcomingLaunches(e.page).subscribe((data) => {
+      this.dataService.getUpcomingLaunches(e.page).subscribe(data => {
         this.setLaunchFields(data);
       });
     }
     if (this.selectedOption === 'Successful Launches') {
-      this.dataService.getSuccessfulLaunches(e.page).subscribe((data) => {
+      this.dataService.getSuccessfulLaunches(e.page).subscribe(data => {
         this.setLaunchFields(data);
       });
     }
     if (this.selectedOption === 'Failed Launches') {
-      this.dataService.getFailedLaunches(e.page).subscribe((data) => {
+      this.dataService.getFailedLaunches(e.page).subscribe(data => {
         this.setLaunchFields(data);
       });
     }
@@ -128,31 +119,24 @@ export class AppComponent implements OnInit, OnDestroy {
 
   getLaunchesData(selectedOption) {
     if (selectedOption === 'All Launches') {
-      this.dataService.getLaunches(1).subscribe((data) => {
+      this.dataService.getLaunches(1).subscribe(data => {
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Upcoming Launches') {
-      this.dataService.getUpcomingLaunches(1).subscribe((data) => {
+      this.dataService.getUpcomingLaunches(1).subscribe(data => {
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Successful Launches') {
-      this.dataService.getSuccessfulLaunches(1).subscribe((data) => {
+      this.dataService.getSuccessfulLaunches(1).subscribe(data => {
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Failed Launches') {
-      this.dataService.getFailedLaunches(1).subscribe((data) => {
+      this.dataService.getFailedLaunches(1).subscribe(data => {
         this.setLaunchFields(data);
       });
-    }
-  }
-
-  setLaunchFields(data) {
-    if (data) {
-      this.launchesPerPage = data['docs'];
-      this.totalItems = data['totalDocs'];
     }
   }
 
@@ -172,6 +156,23 @@ export class AppComponent implements OnInit, OnDestroy {
         return 150;
     }
   }
+
+  datesUpdated(e: any) {
+    if (e.startDate && e.endDate) {
+      console.log(e.startDate.toISOString());
+      this.dataService.getLaunchesOnSelectedDates(1, e.startDate.toISOString(), e.endDate.toISOString()).subscribe( data => {
+        this.setLaunchFields(data);
+      })
+    }
+  }
+
+  setLaunchFields(data) {
+    if (data) {
+      this.launchesPerPage = data['docs'];
+      this.totalItems = data['totalDocs'];
+    }
+  }
+
 
   openDatepicker() {
     this.pickerDirective.open();
