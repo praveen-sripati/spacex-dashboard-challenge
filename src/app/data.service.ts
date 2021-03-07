@@ -47,21 +47,6 @@ export class DataService {
 
   constructor(private httpClient: HttpClient) {}
 
-  getDateParams(startDate: Date, endDate: Date) {
-    let dateParams = {}
-    if (startDate && endDate) {
-      dateParams = {
-        date_utc: {
-          $gte: startDate,
-          $lte: endDate,
-        },
-      };
-    } else {
-      dateParams = {}
-    }
-    return dateParams
-  }
-
   handleError(error: HttpErrorResponse) {
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
@@ -75,82 +60,65 @@ export class DataService {
     return throwError(errorMessage);
   }
 
-  getLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
-    return this.httpClient
-      .post(
-        this.API_BASE_URL + '/launches/query',
-        {
-          query: {
-            ...this.getDateParams(startDate, endDate)
-          },
-          options: {
-            page: pageNumber,
-            ...this.commonOptions,
-          },
+  getDateParams(startDate: Date, endDate: Date) {
+    let dateParams = {};
+    if (startDate && endDate) {
+      dateParams = {
+        date_utc: {
+          $gte: startDate,
+          $lte: endDate,
         },
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-          }),
-        }
-      )
-      .pipe(retry(3), catchError(this.handleError));
+      };
+    } else {
+      dateParams = {};
+    }
+    return dateParams;
+  }
+
+  getLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
+    return this.getLaunchApiConfig({}, pageNumber, startDate, endDate);
   }
 
   getUpcomingLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
-    return this.httpClient
-      .post(
-        this.API_BASE_URL + '/launches/query',
-        {
-          query: {
-            upcoming: true,
-            ...this.getDateParams(startDate, endDate)
-          },
-          options: {
-            page: pageNumber,
-            ...this.commonOptions,
-          },
-        },
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-          }),
-        }
-      )
-      .pipe(retry(3), catchError(this.handleError));
+    return this.getLaunchApiConfig(
+      { upcoming: true },
+      pageNumber,
+      startDate,
+      endDate
+    );
   }
 
   getSuccessfulLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
-    return this.httpClient
-      .post(
-        this.API_BASE_URL + '/launches/query',
-        {
-          query: {
-            success: true,
-            ...this.getDateParams(startDate, endDate)
-          },
-          options: {
-            page: pageNumber,
-            ...this.commonOptions,
-          },
-        },
-        {
-          headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-          }),
-        }
-      )
-      .pipe(retry(3), catchError(this.handleError));
+    return this.getLaunchApiConfig(
+      { success: true },
+      pageNumber,
+      startDate,
+      endDate
+    );
   }
 
   getFailedLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
+    return this.getLaunchApiConfig(
+      { 'failures.0': { $exists: true } },
+      pageNumber,
+      startDate,
+      endDate
+    );
+  }
+
+  getLaunchApiConfig(
+    query: {},
+    pageNumber: number,
+    startDate: Date,
+    endDate: Date
+  ) {
     return this.httpClient
       .post(
         this.API_BASE_URL + '/launches/query',
         {
           query: {
-            'failures.0': { $exists: true },
-            ...this.getDateParams(startDate, endDate)
+            ...query,
+            ...this.getDateParams(startDate, endDate),
           },
           options: {
             page: pageNumber,
@@ -164,23 +132,5 @@ export class DataService {
         }
       )
       .pipe(retry(3), catchError(this.handleError));
-  }
-
-  getLaunchesOnSelectedDates(
-    pageNumber: number,
-    startDate: Date,
-    endDate: Date,
-    selectedOption: string
-  ) {
-    switch (selectedOption) {
-      case 'All Launches':
-        return this.getLaunches(pageNumber, startDate, endDate);
-      case 'Upcoming Launches':
-        return this.getUpcomingLaunches(pageNumber, startDate, endDate);
-      case 'Successful Launches':
-        return this.getSuccessfulLaunches(pageNumber, startDate, endDate);
-      case 'Failed Launches':
-        return this.getFailedLaunches(pageNumber, startDate, endDate);
-    }
   }
 }
