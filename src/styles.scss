@@ -1,4 +1,4 @@
-
+@import './app/styles/variables';
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
@@ -47,3 +47,37 @@ $spaceX-theme: mat-light-theme((
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+// Custom Fonts
+.spx-font-extra-small {
+  font-size: 10px;
+}
+
+.spx-font-small {
+  font-size: 12px;
+}
+
+.spx-font-regular {
+  font-size: 14px;
+}
+
+.spx-font-medium {
+  font-size: 16px;
+}
+
+.spx-font-large {
+  font-size: 18px;
+}
+
+.spx-font-extra-large {
+  font-size: 24px;
+}
+
+.spx-font-semi-bold {
+  font-weight: 600;
+}
+
+.spx-nitro-gray {
+  color: $nitroGray;
+}

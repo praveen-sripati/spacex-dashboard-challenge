@@ -1,3 +1,49 @@
+@import '../styles/variables';
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .details-container {
-  padding: 20px;
+  position: relative;
+  .details-header {
+    display: flex;
+    img {
+      max-width: 72px;
+      width: 100%;
+      max-height: 72px;
+      height: 100%;
+    }
+    .details-heading-right {
+      display: flex;
+      flex-direction: column;
+      padding-left: 20px;
+      justify-content: center;
+    }
+  }
+  .details-description {
+    margin-bottom: 15px;
+    a {
+      outline: none;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+  .detail-fields {
+    padding: 10px 0;
+    border-bottom: 1px solid $gray;
+    &:last-of-type {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+  }
+  .close-icon {
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 20px;
+    cursor: pointer;
+  }
 }

@@ -41,6 +41,7 @@
 tbody {
   transition: transition(all 0.1s ease);
   tr:hover {
+    cursor: pointer;
     td:first-child {
       border-left: 5px solid $matDarkBlue;
       border-radius: 4px;
@@ -55,3 +56,4 @@ tbody,
 tfoot {
   border-spacing: unset;
 }
+

@@ -136,19 +136,17 @@ export class AppComponent implements OnInit, OnDestroy {
 
   getLaunchesData(selectedOption) {
     if (selectedOption === 'All Launches') {
-
       this.dataService.getLaunches(1, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
+        console.log(data);
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Upcoming Launches') {
-
       this.dataService.getUpcomingLaunches(1, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
         this.setLaunchFields(data);
       });
     }
     if (selectedOption === 'Successful Launches') {
-
       this.dataService.getSuccessfulLaunches(1, this.selected?.startDate?.toISOString(), this.selected?.endDate?.toISOString()).subscribe((data) => {
         this.setLaunchFields(data);
       });

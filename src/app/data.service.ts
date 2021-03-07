@@ -22,6 +22,16 @@ export class DataService {
       failures: 1,
       success: 1,
       upcoming: 1,
+      links: {
+        patch: {
+          small: 1
+        },
+        article: 1,
+        webcast: 1,
+        wikipedia: 1,
+      },
+      details: 1,
+      flight_number: 1,
     },
     populate: [
       {
@@ -33,7 +43,11 @@ export class DataService {
       {
         path: 'rocket',
         select: {
+          engines: {
+            type: 1
+          },
           name: 1,
+          company: 1
         },
       },
       {
@@ -42,6 +56,12 @@ export class DataService {
           name: 1,
         },
       },
+      {
+        path: 'capsules',
+        select: {
+          type: 1,
+        }
+      }
     ],
   };
 
