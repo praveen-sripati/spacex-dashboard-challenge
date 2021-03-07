@@ -25,6 +25,14 @@ export class AppComponent implements OnInit, OnDestroy {
   inputSizes: {};
   selected: any;
   alwaysShowCalendars: boolean;
+  localeConfig = {
+    format: 'MM/DD/YYYY', // could be 'YYYY-MM-DDTHH:mm:ss.SSSSZ'
+    displayFormat: 'DD MMM y', // default is format value
+    direction: 'ltr', // could be rtl
+    separator: ' To ', // default is ' - '
+    cancelLabel: 'Cancel', // detault is 'Cancel'
+    customRangeLabel: 'Custom range',
+  };
   ranges: any = {
     Today: [moment(), moment()],
     Yesterday: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
@@ -151,17 +159,17 @@ export class AppComponent implements OnInit, OnDestroy {
   getInputSize(datepicker: HTMLInputElement) {
     switch (datepicker.value) {
       case 'Today':
-        return 120
+        return 120;
       case 'Yesterday':
-        return 140
+        return 140;
       case 'Last 7 Days':
-        return 140
+        return 140;
       case 'This Month':
-        return 140
+        return 140;
       case 'Last Month':
-        return 140
+        return 140;
       case 'Last 30 Days':
-        return 150
+        return 150;
     }
   }
 

@@ -12,7 +12,6 @@ export class SpxTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log(this.tableHeaders)
   }
 
 }
