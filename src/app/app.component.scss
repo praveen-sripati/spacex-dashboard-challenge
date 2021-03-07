@@ -1,4 +1,5 @@
-@import './styles/variables';
+@import "./styles/variables";
+@import "./styles/mixins";
 
 .table-container {
   max-width: 70%;
@@ -6,10 +7,123 @@
   margin: 40px auto;
 }
 
+.filters-container {
+  display: flex;
+  position: relative;
+  justify-content: space-between;
+  .date-picker-container {
+    .date-picker {
+      border: none;
+      cursor: pointer;
+      height: 100%;
+      padding-left: 35px;
+      &:focus {
+        outline: none;
+      }
+    }
+    .date-range-icon {
+      position: absolute;
+      left: 0;
+      top: 8px;
+      cursor: pointer;
+    }
+    .arrow-down-icon {
+      position: absolute;
+      top: 9px;
+      cursor: pointer;
+    }
+  }
+}
+
+::ng-deep .md-drppicker.shown {
+  top: 54px !important;
+  border-radius: 6px;
+  padding-bottom: 9px;
+  .buttons {
+    margin: 0 15px 5px 0;
+    &::after {
+      content: " ";
+      width: 100%;
+      height: 1px;
+      background-color: $gray;
+      position: absolute;
+      bottom: 66px;
+      left: 0;
+    }
+    .buttons_input {
+      button {
+        margin-top: 18px;
+        font-size: 14px;
+        font-weight: bold;
+        box-shadow: none;
+        padding: 0 18px;
+        border-radius: 6px;
+        background-color: $matDarkBlue;
+        color: $matBlack;
+        border: 1px solid $gray;
+        @include transition(box-shadow 0.3s ease);
+        &:hover {
+          box-shadow: 0 0 3px 0px $gray;
+        }
+        &:first-child {
+          margin-right: 13px;
+          background-color: $white;
+        }
+      }
+    }
+  }
+  .ranges {
+    margin-top: 14px;
+    margin-right: 5px;
+    padding: 2px 0 23px 13px;
+    border-right: 1px solid $gray;
+    ul {
+      li {
+        button {
+          font-size: 14px;
+          font-weight: 700;
+          min-width: 150px;
+        }
+        button.active {
+          background-color: $matDarkBlue;
+          min-height: 45px;
+          border-top-left-radius: 6px;
+          border-bottom-left-radius: 6px;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .calendar {
+    .calendar-table {
+      table {
+        border-collapse: separate;
+        tr {
+          td {
+            height: 35px;
+            width: 35px;
+            border-radius: 20px;
+          }
+          td.active.start-date,
+          td.active.end-date {
+            background-color: $matLime;
+            color: $matBlack;
+            font-weight: 600;
+          }
+          td.in-range {
+            font-weight: bold;
+            background-color: rgba($color: $matLime, $alpha: 0.2);
+          }
+        }
+      }
+    }
+  }
+}
+
 ::ng-deep .spx-pagination {
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 100px;
+  margin-bottom: 30px;
   .page-link {
     color: $matBlack;
     padding: 11px 15px;

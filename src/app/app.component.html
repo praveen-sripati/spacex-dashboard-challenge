@@ -1,7 +1,24 @@
 <div>
   <app-spx-header></app-spx-header>
   <section class="table-container">
-    <div class="d-flex justify-content-end mb-3">
+    <div class="filters-container mb-3">
+      <div class="date-picker-container">
+        <input
+          class="date-picker"
+          placeholder="something"
+          ngxDaterangepickerMd
+          [(ngModel)]="selected"
+          [showCustomRangeLabel]="true"
+          [alwaysShowCalendars]="true"
+          [ranges]="ranges"
+          [linkedCalendars]="true"
+          [isInvalidDate]="isInvalidDate"
+          showCancel="true"
+          readonly
+        />
+        <i class="material-icons date-range-icon ngx-daterangepicker-action" (click)="openDatepicker()"> date_range </i>
+        <i class="material-icons arrow-down-icon ngx-daterangepicker-action" (click)="openDatepicker()"> keyboard_arrow_down </i>
+      </div>
       <app-simple-select
         [selectOptions]="launchFilters"
         (onSelected)="onSelectedOption($event)"

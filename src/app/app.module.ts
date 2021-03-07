@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
 import { MatSelectModule } from '@angular/material/select';
@@ -13,6 +13,8 @@ import { SpxTableComponent } from './shared/spx-table/spx-table.component';
 import { StatusChipComponent } from './status-chip/status-chip.component';
 import { SpxFiltersModule } from './shared/spx-filters/spx-filters.module';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
+import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
+
 
 
 @NgModule({
@@ -30,7 +32,9 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
     MatFormFieldModule,
     SpxFiltersModule,
     FormsModule,
-    PaginationModule.forRoot()
+    ReactiveFormsModule,
+    PaginationModule.forRoot(),
+    NgxDaterangepickerMd.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent],
