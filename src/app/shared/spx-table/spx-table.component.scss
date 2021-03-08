@@ -55,5 +55,36 @@ thead,
 tbody,
 tfoot {
   border-spacing: unset;
+  tr {
+    td:nth-child(1), th:nth-child(1) {
+      max-width: 90px;
+    }
+  }
 }
 
+.no-data {
+  height: 700px;
+  // pointer-events: none;
+  td {
+    text-align: center;
+    padding-top: 30px;
+    &:hover {
+      border: none;
+
+    }
+  }
+}
+
+.table thead .no-data th,
+.table thead .no-data td,
+.table tbody .no-data th,
+.table tbody .no-data td,
+.table tfoot .no-data th,
+.table tfoot .no-data td {
+  text-align: center;
+  padding-top: 30px;
+  &:hover {
+    background-color: transparent;
+    border: none;
+  }
+}

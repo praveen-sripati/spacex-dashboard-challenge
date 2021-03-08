@@ -167,7 +167,6 @@ export class AppComponent implements OnInit, OnDestroy {
           this.setLaunchFields(data);
         });
     }
-    this.loadingService.stopLoading();
   }
 
   getLaunchesData(selectedOption) {

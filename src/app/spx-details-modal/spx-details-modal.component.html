@@ -1,23 +1,23 @@
 <div class="details-container">
   <div class="details-header">
-    <img [src]="data.links.patch.small" alt="Logo" />
+    <img [src]="data?.links?.patch?.small || 'http://via.placeholder.com/72'" alt="Logo" />
     <div class="details-heading-right">
       <div class="d-flex align-items-center">
-        <h5 class="mr-2 mb-0">{{ data.name }}</h5>
+        <h5 class="mr-2 mb-0">{{ data?.name || "N/A" }}</h5>
         <app-status-chip
-          *ngIf="data.success"
+          *ngIf="data?.success"
           status="success"
         ></app-status-chip>
         <app-status-chip
-          *ngIf="data.upcoming"
+          *ngIf="data?.upcoming"
           status="upcoming"
         ></app-status-chip>
         <app-status-chip
-          *ngIf="data.failures.length > 0"
+          *ngIf="data?.failures?.length > 0"
           status="failed"
         ></app-status-chip>
       </div>
-      <p>{{ data.rocket.name }}</p>
+      <p>{{ data?.rocket?.name || "N/A" }}</p>
       <div class="details-link-icons">
         <i class=""></i>
         <i class=""></i>
@@ -41,10 +41,7 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="true">
-          {{ data.flight_number }}
-        </ng-container>
-        <ng-container *ngIf="!data || !data.flight_number"> N/A </ng-container>
+          {{ data?.flight_number || "N/A" }}
       </p>
     </div>
   </div>
@@ -54,10 +51,7 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.name">
-          {{ data.name }}
-        </ng-container>
-        <ng-container *ngIf="!data || !data.name"> N/A </ng-container>
+          {{ data?.name || "N/A" }}
       </p>
     </div>
   </div>
@@ -67,26 +61,9 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container
-          *ngIf="
-            data &&
-            data.rocket &&
-            data.rocket.engines &&
-            data.rocket.engines.type
-          "
-        >
-          {{ data.rocket.engines.type }}
-        </ng-container>
-        <ng-container
-          *ngIf="
-            !data ||
-            !data.rocket ||
-            !data.rocket.engines ||
-            !data.rocket.engines.type
-          "
-        >
-          N/A
-        </ng-container>
+
+          {{ data?.rocket?.engines?.type || 'N/A' }}
+
       </p>
     </div>
   </div>
@@ -96,12 +73,7 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.rocket && data.rocket.name">
-          {{ data.rocket.name }}
-        </ng-container>
-        <ng-container *ngIf="!data || !data.rocket || !data.rocket.name">
-          N/A
-        </ng-container>
+          {{ data?.rocket?.name || "N/A" }}
       </p>
     </div>
   </div>
@@ -111,12 +83,8 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.rocket && data.rocket.company">
-          {{ data.rocket.company }}
-        </ng-container>
-        <ng-container *ngIf="!data || !data.rocket || !data.rocket.company">
-          N/A
-        </ng-container>
+          {{ data?.rocket?.company || "N/A" }}
+
       </p>
     </div>
   </div>
@@ -126,12 +94,8 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.rocket && data.rocket.company">
-          {{ data.rocket.company }}
-        </ng-container>
-        <ng-container *ngIf="!data || !data.rocket || !data.rocket.company">
-          N/A
-        </ng-container>
+          {{ data?.rocket?.company || "N/A" }}
+
       </p>
     </div>
   </div>
@@ -141,11 +105,8 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.date_utc">
-          {{ data.date_utc | date: 'dd MMMM y \'at\' HH:mm' }}
-        </ng-container>
-        <ng-container *ngIf="!data || !data.date_utc"> N/A </ng-container>
-      </p>
+          {{ data?.date_utc | date: 'dd MMMM y \'at\' HH:mm' || "N/A" }}
+        </p>
     </div>
   </div>
   <div class="row detail-fields">
@@ -154,23 +115,7 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container
-          *ngIf="
-            data && data.capsules && data.capsules[0] && data.capsules[0].type
-          "
-        >
-          {{ data.capsules[0].type }}
-        </ng-container>
-        <ng-container
-          *ngIf="
-            !data ||
-            !data.capsules ||
-            !data.capsules[0] ||
-            !data.capsules[0].type
-          "
-        >
-          N/A
-        </ng-container>
+          {{ data?.capsules[0]?.type || "N/A" }}
       </p>
     </div>
   </div>
@@ -180,14 +125,7 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.payloads && data.payloads[0] && data.payloads[0].orbit">
-          {{ data.payloads[0].orbit }}
-        </ng-container>
-        <ng-container
-          *ngIf="!data || !data.payloads || !data.payloads[0].orbit"
-        >
-          N/A
-        </ng-container>
+          {{ data?.payloads[0]?.orbit || "N/A" }}
       </p>
     </div>
   </div>
@@ -197,12 +135,7 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.launchpad && data.launchpad.name">
-          {{ data.launchpad.name }}
-        </ng-container>
-        <ng-container *ngIf="!data || !data.launchpad || !data.launchpad.name">
-          N/A
-        </ng-container>
+          {{ data?.launchpad?.name || "N/A" }}
       </p>
     </div>
   </div>
