@@ -8,6 +8,7 @@
     outline: none;
   }
   padding: 3px 10px;
+  padding-left: 0;
   font-size: 16px;
   font-weight: 600;
   i {
@@ -27,7 +28,6 @@
     outline: none;
   }
   &.mat-menu-panel {
-    width: 166px;
     border: 1px solid $gray;
     box-shadow: 0 0 3px 0px $gray;
   }

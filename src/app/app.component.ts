@@ -1,14 +1,10 @@
-import {
-  Component,
-  OnDestroy,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { Subject } from 'rxjs';
 import { Launch } from './data.model';
 import { DataService } from './data.service';
+import { LoadingService } from './loading.service';
 
 @Component({
   selector: 'app-root',
@@ -58,9 +54,6 @@ export class AppComponent implements OnInit, OnDestroy {
       moment().subtract(1, 'month').endOf('month'),
     ],
   };
-  dateLimit: number = 30;
-  // startDate: Date;
-  // endDate: Date;
 
   // Table Headers
   tableHeaders = [
@@ -88,7 +81,10 @@ export class AppComponent implements OnInit, OnDestroy {
     'Failed Launches',
   ];
 
-  constructor(private dataService: DataService) {
+  constructor(
+    private dataService: DataService,
+    public loadingService: LoadingService
+  ) {
     this.alwaysShowCalendars = true;
   }
 
@@ -102,13 +98,13 @@ export class AppComponent implements OnInit, OnDestroy {
       if (parsedDate.startDate && parsedDate.endDate) {
         this.selected = {
           startDate: moment(parsedDate.startDate),
-          endDate: moment(parsedDate.endDate)
-        }
+          endDate: moment(parsedDate.endDate),
+        };
       } else {
         this.selected = {
           startDate: null,
-          endDate: null
-        }
+          endDate: null,
+        };
       }
     }
     this.getLaunchesData(this.selectedOption);
@@ -126,6 +122,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   pageChanged(e: any) {
+    this.loadingService.startLoading();
     if (this.selectedOption === 'All Launches') {
       this.dataService
         .getLaunches(
@@ -170,9 +167,11 @@ export class AppComponent implements OnInit, OnDestroy {
           this.setLaunchFields(data);
         });
     }
+    this.loadingService.stopLoading();
   }
 
   getLaunchesData(selectedOption) {
+    this.loadingService.startLoading();
     if (selectedOption === 'All Launches') {
       this.dataService
         .getLaunches(
@@ -245,6 +244,7 @@ export class AppComponent implements OnInit, OnDestroy {
     if (data) {
       this.launchesPerPage = data['docs'];
       this.totalLaunches = data['totalDocs'];
+      this.loadingService.stopLoading();
     }
   }
 

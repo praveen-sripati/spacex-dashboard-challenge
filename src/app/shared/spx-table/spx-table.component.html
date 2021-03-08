@@ -2,26 +2,67 @@
 <table id="table" class="table">
   <thead>
     <tr>
-      <th *ngFor="let item of tableHeaders">{{item}}</th>
+      <th *ngFor="let item of tableHeaders">{{ item }}</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let item of data; let i = index;" (click)="openDialog(item)">
-      <td>{{i+1}}</td>
-      <td>{{(item?.date_utc | date: 'dd MMMM y \'at\' HH:mm')}}</td>
-      <td>{{item?.launchpad.name}}</td>
-      <td>{{item?.name}}</td>
-      <td>{{item?.payloads[0]?.orbit}}</td>
-      <td *ngIf="item?.failures.length > 0">
+    <tr *ngFor="let item of data; let i = index" (click)="openDialog(item)">
+      <td *ngIf="this.loadingService.loading$ | async">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="loaderTheme"
+        ></ngx-skeleton-loader>
+      </td>
+      <td *ngIf="!(this.loadingService.loading$ | async)">{{ i + 1 }}</td>
+      <td *ngIf="this.loadingService.loading$ | async">
+        <ngx-skeleton-loader
+          count="1"
+          appearance="line"
+          [theme]="loaderTheme"
+        ></ngx-skeleton-loader>
+      </td>
+      <td *ngIf="!(this.loadingService.loading$ | async)">
+        {{ item?.date_utc | date: "dd MMMM y 'at' HH:mm" }}
+      </td>
+      <td *ngIf="this.loadingService.loading$ | async">
+        <ngx-skeleton-loader count="1" appearance="line" [theme]="loaderTheme"></ngx-skeleton-loader>
+      </td>
+      <td *ngIf="!(this.loadingService.loading$ | async)">
+        {{ item?.launchpad.name }}
+      </td>
+      <td *ngIf="this.loadingService.loading$ | async">
+        <ngx-skeleton-loader count="1" appearance="line" [theme]="loaderTheme"></ngx-skeleton-loader>
+      </td>
+      <td *ngIf="!(this.loadingService.loading$ | async)">{{ item?.name }}</td>
+      <td *ngIf="this.loadingService.loading$ | async">
+        <ngx-skeleton-loader count="1" appearance="line" [theme]="loaderTheme"></ngx-skeleton-loader>
+      </td>
+      <td *ngIf="!(this.loadingService.loading$ | async)">
+        {{ item?.payloads[0]?.orbit }}
+      </td>
+      <td *ngIf="this.loadingService.loading$ | async">
+        <ngx-skeleton-loader count="1" appearance="line" [theme]="loaderTheme"></ngx-skeleton-loader>
+      </td>
+      <td
+        *ngIf="
+          item?.failures.length > 0 && !(this.loadingService.loading$ | async)
+        "
+      >
         <app-status-chip [status]="'failed'"></app-status-chip>
       </td>
-      <td *ngIf="item?.upcoming">
+      <td *ngIf="item?.upcoming && !(this.loadingService.loading$ | async)">
         <app-status-chip [status]="'upcoming'"></app-status-chip>
       </td>
-      <td *ngIf="item?.success">
+      <td *ngIf="item?.success && !(this.loadingService.loading$ | async)">
         <app-status-chip [status]="'success'"></app-status-chip>
       </td>
-      <td>{{item?.rocket?.name}}</td>
+      <td *ngIf="this.loadingService.loading$ | async">
+        <ngx-skeleton-loader count="1" appearance="line" [theme]="loaderTheme"></ngx-skeleton-loader>
+      </td>
+      <td *ngIf="!(this.loadingService.loading$ | async)">
+        {{ item?.rocket?.name }}
+      </td>
     </tr>
   </tbody>
 </table>

@@ -180,7 +180,7 @@
     </div>
     <div class="col-7">
       <p>
-        <ng-container *ngIf="data && data.payloads && data.payloads[0].orbit">
+        <ng-container *ngIf="data && data.payloads && data.payloads[0] && data.payloads[0].orbit">
           {{ data.payloads[0].orbit }}
         </ng-container>
         <ng-container
