@@ -41,4 +41,6 @@ export interface Launch {
 
 export interface SorterOption {
   date_utc?: number,
+  name?: number,
+
 }

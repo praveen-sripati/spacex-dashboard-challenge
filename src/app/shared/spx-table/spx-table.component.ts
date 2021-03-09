@@ -63,8 +63,12 @@ export class SpxTableComponent implements OnInit {
           date_utc: this.sortOrder === -1 ? 1 : -1
         }
         break
+      case 'Mission':
+        sortedInfo = {
+          name: this.sortOrder === -1 ? 1 : -1
+        }
     }
-    // console.log(sortedInfo)
+    console.log(sortedInfo);
     this.selectedSortOption.emit({...sortedInfo});
     this.sortOrder = this.sortOrder === -1 ? 1 : -1
   }
