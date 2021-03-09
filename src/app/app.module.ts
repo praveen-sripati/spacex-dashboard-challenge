@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatIconModule } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { AppComponent } from './app.component';
@@ -35,6 +36,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatSelectModule,
     MatFormFieldModule,
     MatDialogModule,
+    MatIconModule,
     MatProgressSpinnerModule,
     SpxFiltersModule,
     FormsModule,
