@@ -47,7 +47,11 @@ $spaceX-theme: mat-light-theme((
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-
+a,span,div,p,img {
+  &:focus {
+    outline: none;
+  }
+}
 
 // Custom Fonts
 .spx-font-extra-small {

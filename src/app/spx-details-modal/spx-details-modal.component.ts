@@ -8,7 +8,13 @@ import { Launch } from '../data.model';
   styleUrls: ['./spx-details-modal.component.scss'],
 })
 export class SpxDetailsModalComponent implements OnInit {
+  loaderTheme = {
+    backgroundColor: '#87cefa',
+    opacity: 0.8,
+  };
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: Launch) {}
 
   ngOnInit(): void {}
+
 }
