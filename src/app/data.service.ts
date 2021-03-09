@@ -6,6 +6,7 @@ import {
 } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { SorterOption } from './data.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +14,9 @@ import { retry, catchError } from 'rxjs/operators';
 export class DataService {
   private API_BASE_URL = 'https://api.spacexdata.com/v4';
   commonOptions = {
-    sort: {
-      date_utc: 1,
-    },
+    // sort: {
+    //   date_utc: 1,
+    // },
     select: {
       name: 1,
       date_utc: 1,
@@ -95,34 +96,37 @@ export class DataService {
     return dateParams;
   }
 
-  getLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
-    return this.getLaunchApiConfig({}, pageNumber, startDate, endDate);
+  getLaunches(pageNumber: number, startDate?: Date, endDate?: Date, sortedOption?: SorterOption) {
+    return this.getLaunchApiConfig({}, pageNumber, startDate, endDate, sortedOption);
   }
 
-  getUpcomingLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
+  getUpcomingLaunches(pageNumber: number, startDate?: Date, endDate?: Date, sortedOption?: SorterOption) {
     return this.getLaunchApiConfig(
       { upcoming: true },
       pageNumber,
       startDate,
-      endDate
+      endDate,
+      sortedOption
     );
   }
 
-  getSuccessfulLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
+  getSuccessfulLaunches(pageNumber: number, startDate?: Date, endDate?: Date, sortedOption?: SorterOption) {
     return this.getLaunchApiConfig(
       { success: true },
       pageNumber,
       startDate,
-      endDate
+      endDate,
+      sortedOption
     );
   }
 
-  getFailedLaunches(pageNumber: number, startDate?: Date, endDate?: Date) {
+  getFailedLaunches(pageNumber: number, startDate?: Date, endDate?: Date, sortedOption?: SorterOption) {
     return this.getLaunchApiConfig(
       { 'failures.0': { $exists: true } },
       pageNumber,
       startDate,
-      endDate
+      endDate,
+      sortedOption
     );
   }
 
@@ -130,8 +134,10 @@ export class DataService {
     query: {},
     pageNumber: number,
     startDate: Date,
-    endDate: Date
+    endDate: Date,
+    sortedOption: SorterOption
   ) {
+    console.log(sortedOption);
     return this.httpClient
       .post(
         this.API_BASE_URL + '/launches/query',
@@ -142,6 +148,7 @@ export class DataService {
           },
           options: {
             page: pageNumber,
+            sort: sortedOption,
             ...this.commonOptions,
           },
         },

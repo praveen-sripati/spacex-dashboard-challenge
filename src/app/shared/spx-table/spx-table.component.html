@@ -2,14 +2,26 @@
 <table id="table" class="table">
   <thead>
     <tr>
-      <th *ngFor="let item of tableHeaders">{{ item }}</th>
+      <th class="pointer" *ngFor="let item of tableHeaders" (click)="sortData(item)">
+        <div class="d-flex justify-content-between pointer">
+          <span>{{ item }}</span>
+          <mat-icon
+            [style]="{ height: '12px', width: '12px' }"
+            svgIcon="icon-sort-down"
+            aria-hidden="false"
+            aria-label="sort"
+          ></mat-icon>
+        </div>
+      </th>
     </tr>
   </thead>
   <tbody>
     <ng-container *ngIf="data?.length <= 0">
       <tr class="no-data">
         <td [attr.colspan]="tableHeaders.length" rowspan="10">
-          <span class="spx-font-regular spx-font-semi-bold spx-nitro-gray">No results found in the specified filter</span>
+          <span class="spx-font-regular spx-font-semi-bold spx-nitro-gray"
+            >No results found in the specified filter</span
+          >
         </td>
       </tr>
     </ng-container>

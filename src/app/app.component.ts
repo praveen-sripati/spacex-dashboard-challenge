@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { Subject } from 'rxjs';
-import { Launch } from './data.model';
+import { Launch, SorterOption } from './data.model';
 import { DataService } from './data.service';
 import { LoadingService } from './loading.service';
 
@@ -56,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
   };
 
   // Table Headers
+  selectedSortOption: SorterOption;
   tableHeaders = [
     'No:',
     'Launched',
@@ -128,7 +129,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getLaunches(
           e.page,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -139,7 +141,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getUpcomingLaunches(
           e.page,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -150,7 +153,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getSuccessfulLaunches(
           e.page,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -161,7 +165,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getFailedLaunches(
           e.page,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -176,7 +181,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getLaunches(
           1,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -187,7 +193,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getUpcomingLaunches(
           1,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -198,7 +205,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getSuccessfulLaunches(
           1,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -209,7 +217,8 @@ export class AppComponent implements OnInit, OnDestroy {
         .getFailedLaunches(
           1,
           this.selected?.startDate?.toISOString(),
-          this.selected?.endDate?.toISOString()
+          this.selected?.endDate?.toISOString(),
+          this.selectedSortOption
         )
         .subscribe((data) => {
           this.setLaunchFields(data);
@@ -245,6 +254,12 @@ export class AppComponent implements OnInit, OnDestroy {
       this.totalLaunches = data['totalDocs'];
       this.loadingService.stopLoading();
     }
+  }
+
+  selectedSort(selectedSortOption) {
+    this.selectedSortOption = selectedSortOption;
+    // console.log(this.selectedSortOption);
+    this.getLaunchesData(this.selectedOption)
   }
 
   openDatepicker() {

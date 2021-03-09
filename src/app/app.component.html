@@ -33,6 +33,7 @@
     <app-spx-table
       [tableHeaders]="tableHeaders"
       [data]="launchesPerPage"
+      (selectedSortOption)="selectedSort($event)"
     ></app-spx-table>
     <pagination
       class="spx-pagination"

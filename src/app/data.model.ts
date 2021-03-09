@@ -38,3 +38,7 @@ export interface Launch {
   success: boolean,
   upcoming: boolean
 }
+
+export interface SorterOption {
+  date_utc?: number,
+}
