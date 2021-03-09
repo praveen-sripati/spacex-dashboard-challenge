@@ -1,4 +1,4 @@
-@import '../styles/variables';
+@import "../styles/variables";
 
 * {
   margin: 0;
@@ -20,6 +20,14 @@
       flex-direction: column;
       padding-left: 20px;
       justify-content: center;
+      .details-title {
+        max-width: 230px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+      .details-link-icons {
+      }
     }
   }
   .details-description {
