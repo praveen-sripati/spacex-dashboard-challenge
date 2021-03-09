@@ -2,12 +2,20 @@
 <table id="table" class="table">
   <thead>
     <tr>
-      <th class="pointer" *ngFor="let item of tableHeaders" (click)="sortData(item)">
-        <div class="d-flex justify-content-between pointer">
+      <th *ngFor="let item of tableHeaders" (click)="sortData(item)">
+        <div class="d-flex justify-content-between">
           <span>{{ item }}</span>
           <mat-icon
+            *ngIf="sortOrder === -1"
             [style]="{ height: '12px', width: '12px' }"
             svgIcon="icon-sort-down"
+            aria-hidden="false"
+            aria-label="sort"
+          ></mat-icon>
+          <mat-icon
+            *ngIf="sortOrder === 1"
+            [style]="{ height: '12px', width: '12px' }"
+            svgIcon="icon-sort-up"
             aria-hidden="false"
             aria-label="sort"
           ></mat-icon>

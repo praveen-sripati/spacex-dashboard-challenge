@@ -15,6 +15,7 @@ export class SpxTableComponent implements OnInit {
   @Output() selectedSortOption = new EventEmitter<string>()
   @Input() tableHeaders: string[];
   @Input() data: any[];
+  selectedOption;
   sortOrder: number = 1;
   loaderTheme = {
     backgroundColor: '#87cefa',
@@ -55,6 +56,7 @@ export class SpxTableComponent implements OnInit {
 
   sortData(item: string) {
     let sortedInfo;
+    this.selectedOption = item;
     switch(item) {
       case 'Launched':
         sortedInfo = {
