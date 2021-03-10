@@ -7,8 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatIconModule } from "@angular/material/icon";
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 import { AppComponent } from './app.component';
 import { SpxHeaderComponent } from './spx-header/spx-header.component';
@@ -19,7 +19,6 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { NgxDaterangepickerMd } from 'ngx-daterangepicker-material';
 import { SpxDetailsModalComponent } from './spx-details-modal/spx-details-modal.component';
 import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
-
 
 @NgModule({
   declarations: [
@@ -37,7 +36,7 @@ import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
     MatFormFieldModule,
     MatDialogModule,
     MatIconModule,
-    MatProgressSpinnerModule,
+    MatTooltipModule,
     SpxFiltersModule,
     FormsModule,
     ReactiveFormsModule,

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Launch, SorterOption } from 'src/app/data.model';
+import { Launch } from 'src/app/data.model';
 import { SpxDetailsModalComponent } from '../../spx-details-modal/spx-details-modal.component';
 import { LoadingService } from '../../loading.service';
 import { MatIconRegistry } from '@angular/material/icon';
@@ -16,7 +16,8 @@ export class SpxTableComponent implements OnInit {
   @Input() tableHeaders: string[];
   @Input() data: any[];
   selectedOption;
-  sortOrder: number = 1;
+  launchedSortOrder: number = 1;
+  locationSortOrder: number = 1;
   loaderTheme = {
     backgroundColor: '#87cefa',
     opacity: 0.8,
@@ -60,16 +61,17 @@ export class SpxTableComponent implements OnInit {
     switch(item) {
       case 'Launched':
         sortedInfo = {
-          date_utc: this.sortOrder === -1 ? 1 : -1
+          date_utc: this.launchedSortOrder === -1 ? 1 : -1
         }
         break
       case 'Mission':
         sortedInfo = {
-          name: this.sortOrder === -1 ? 1 : -1
+          name: this.locationSortOrder === -1 ? 1 : -1
         }
     }
     console.log(sortedInfo);
     this.selectedSortOption.emit({...sortedInfo});
-    this.sortOrder = this.sortOrder === -1 ? 1 : -1
+    this.launchedSortOrder = (this.selectedOption === 'Launched') && this.launchedSortOrder === -1 ? 1 : -1;
+    this.locationSortOrder = (this.selectedOption === 'Mission') && this.locationSortOrder === -1 ? 1 : -1;
   }
 }

@@ -26,6 +26,15 @@
       th {
         font-weight: 600;
         padding: $tableHeaderCellPadding;
+        &:first-child {
+          width: 50px;
+        }
+        &:nth-child(2) {
+          width: 350px;
+        }
+        &:nth-child(3) {
+          width: 220px;
+        }
       }
     }
   }
@@ -87,4 +96,8 @@ tfoot {
     background-color: transparent;
     border: none;
   }
+}
+
+.header-pointer {
+  cursor: pointer;
 }

@@ -58,9 +58,6 @@ export class AppComponent implements OnInit, OnDestroy {
   // Table Headers
   selectedSortOption: SorterOption;
   tableHeaders = [
-    'No:',
-    'Launched',
-    'Location',
     'Mission',
     'Orbit',
     'Launch Status',
@@ -258,7 +255,6 @@ export class AppComponent implements OnInit, OnDestroy {
 
   selectedSort(selectedSortOption) {
     this.selectedSortOption = selectedSortOption;
-    // console.log(this.selectedSortOption);
     this.getLaunchesData(this.selectedOption)
   }
 

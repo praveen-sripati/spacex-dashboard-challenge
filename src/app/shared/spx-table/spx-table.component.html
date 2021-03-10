@@ -2,18 +2,21 @@
 <table id="table" class="table">
   <thead>
     <tr>
-      <th *ngFor="let item of tableHeaders" (click)="sortData(item)">
+      <th>
+        <span>No: </span>
+      </th>
+      <th (click)="sortData('Launched')" class="header-pointer">
         <div class="d-flex justify-content-between">
-          <span>{{ item }}</span>
+          <span>Launched</span>
           <mat-icon
-            *ngIf="sortOrder === -1"
+            *ngIf="launchedSortOrder === -1"
             [style]="{ height: '12px', width: '12px' }"
             svgIcon="icon-sort-down"
             aria-hidden="false"
             aria-label="sort"
           ></mat-icon>
           <mat-icon
-            *ngIf="sortOrder === 1"
+            *ngIf="launchedSortOrder === 1"
             [style]="{ height: '12px', width: '12px' }"
             svgIcon="icon-sort-up"
             aria-hidden="false"
@@ -21,12 +24,34 @@
           ></mat-icon>
         </div>
       </th>
+      <th (click)="sortData('Mission')" class="header-pointer">
+        <div class="d-flex justify-content-between">
+          <span>Location</span>
+          <mat-icon
+            *ngIf="locationSortOrder === -1"
+            [style]="{ height: '12px', width: '12px' }"
+            svgIcon="icon-sort-down"
+            aria-hidden="false"
+            aria-label="sort"
+          ></mat-icon>
+          <mat-icon
+            *ngIf="locationSortOrder === 1"
+            [style]="{ height: '12px', width: '12px' }"
+            svgIcon="icon-sort-up"
+            aria-hidden="false"
+            aria-label="sort"
+          ></mat-icon>
+        </div>
+      </th>
+      <th *ngFor="let item of tableHeaders" (click)="sortData(item)">
+        <span>{{ item }}</span>
+      </th>
     </tr>
   </thead>
   <tbody>
     <ng-container *ngIf="data?.length <= 0">
       <tr class="no-data">
-        <td [attr.colspan]="tableHeaders.length" rowspan="10">
+        <td [attr.colspan]="7" rowspan="10">
           <span class="spx-font-regular spx-font-semi-bold spx-nitro-gray"
             >No results found in the specified filter</span
           >

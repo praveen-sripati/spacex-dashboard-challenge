@@ -78,9 +78,16 @@
             display: none;
           }
         }
+        &:first-child {
+          background-color: $matRed !important;
+          color: $white;
+        }
         &:nth-child(2) {
           margin-right: 13px;
           background-color: $white;
+        }
+        &:last-child {
+          color: $white;
         }
       }
     }
