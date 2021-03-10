@@ -14,9 +14,6 @@ import { SorterOption } from './data.model';
 export class DataService {
   private API_BASE_URL = 'https://api.spacexdata.com/v4';
   commonOptions = {
-    // sort: {
-    //   date_utc: 1,
-    // },
     select: {
       name: 1,
       date_utc: 1,
@@ -137,7 +134,6 @@ export class DataService {
     endDate: Date,
     sortedOption: SorterOption
   ) {
-    console.log(sortedOption);
     return this.httpClient
       .post(
         this.API_BASE_URL + '/launches/query',
