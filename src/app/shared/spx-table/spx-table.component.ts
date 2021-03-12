@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, ViewEncapsulation } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Launch } from 'src/app/data.model';
 import { SpxDetailsModalComponent } from '../../spx-details-modal/spx-details-modal.component';

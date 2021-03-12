@@ -6,10 +6,10 @@
   max-width: 100%;
   margin-bottom: 20px;
   background-color: $white;
-  border: 1px solid $gray;
-  box-shadow: 0 0 3px 0px $gray;
+  border: 1px solid var(--table-border-color);
+  box-shadow: 0 0 3px 0px var(--box-shadow-color);
   border-radius: 8px;
-  border-collapse: separate;
+  border-collapse: unset;
   thead,
   tbody,
   tfoot {
@@ -30,7 +30,7 @@
           width: 50px;
         }
         &:nth-child(2) {
-          width: 350px;
+          width: 320px;
         }
         &:nth-child(3) {
           width: 220px;
@@ -39,16 +39,26 @@
     }
   }
   thead {
-    background-color: $lightestGray;
-    border-color: $lightGray;
+    background-color: var(--table-head-color);
+    border-color: var(--border-color);
+    tr th {
+      span {
+        color: var(--text-color);
+      }
+    }
   }
   thead > tr > th {
+    color: var(--text-color);
     vertical-align: bottom;
   }
 }
 
 tbody {
+  background-color: var(--table-body-color);
   transition: transition(all 0.1s ease);
+  tr td {
+    color: var(--text-color);
+  }
   tr:hover {
     cursor: pointer;
     td:first-child {
@@ -65,7 +75,8 @@ tbody,
 tfoot {
   border-spacing: unset;
   tr {
-    td:nth-child(1), th:nth-child(1) {
+    td:nth-child(1),
+    th:nth-child(1) {
       max-width: 90px;
     }
   }
@@ -77,9 +88,11 @@ tfoot {
   td {
     text-align: center;
     padding-top: 30px;
+    span {
+      color: var(--text-color);
+    }
     &:hover {
       border: none;
-
     }
   }
 }
@@ -100,4 +113,8 @@ tfoot {
 
 .header-pointer {
   cursor: pointer;
+}
+
+::ng-deep .mat-dialog-container {
+  background-color: var(--calendar-background);
 }

@@ -1,10 +1,17 @@
-import { Component, OnDestroy, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  SimpleChanges,
+  ViewChild,
+} from '@angular/core';
 import * as moment from 'moment';
 import { DaterangepickerDirective } from 'ngx-daterangepicker-material';
 import { Subject } from 'rxjs';
 import { Launch, SorterOption } from './data.model';
 import { DataService } from './data.service';
 import { LoadingService } from './loading.service';
+import { ThemeService } from './theme.service';
 
 @Component({
   selector: 'app-root',
@@ -13,6 +20,9 @@ import { LoadingService } from './loading.service';
 })
 export class AppComponent implements OnInit, OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
+
+  //Theme variables
+  selectedTheme: string = 'light';
 
   // Daterange Picker variables
   @ViewChild(DaterangepickerDirective, { static: false })
@@ -57,12 +67,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // Table Headers
   selectedSortOption: SorterOption;
-  tableHeaders = [
-    'Mission',
-    'Orbit',
-    'Launch Status',
-    'Rockets',
-  ];
+  tableHeaders = ['Mission', 'Orbit', 'Launch Status', 'Rockets'];
 
   // Pagination Variables
   totalLaunches = 0;
@@ -81,15 +86,29 @@ export class AppComponent implements OnInit, OnDestroy {
 
   constructor(
     private dataService: DataService,
-    public loadingService: LoadingService
+    public loadingService: LoadingService,
+    private themeService: ThemeService
   ) {
     this.alwaysShowCalendars = true;
   }
 
   ngOnInit() {
+    if (sessionStorage.getItem('selectedTheme')) {
+      this.selectedTheme = sessionStorage.getItem('selectedTheme');
+      if(this.selectedTheme === 'dark') {
+        this.themeService.toggleDark();
+      } else {
+        this.themeService.toggleLight();
+      }
+    } else {
+      sessionStorage.setItem('selectedTheme', this.selectedTheme);
+      this.themeService.toggleLight();
+    }
+
     if (sessionStorage.getItem('selectedOption')) {
       this.selectedOption = sessionStorage.getItem('selectedOption');
     }
+
     if (sessionStorage.getItem('selectedDate')) {
       const selectedDate = sessionStorage.getItem('selectedDate');
       let parsedDate = JSON.parse(selectedDate);
@@ -107,6 +126,8 @@ export class AppComponent implements OnInit, OnDestroy {
     }
     this.getLaunchesData(this.selectedOption);
   }
+
+  ngOnChanges() {}
 
   ngOnDestroy() {
     this.destroy$.next(true);
@@ -255,10 +276,21 @@ export class AppComponent implements OnInit, OnDestroy {
 
   selectedSort(selectedSortOption) {
     this.selectedSortOption = selectedSortOption;
-    this.getLaunchesData(this.selectedOption)
+    this.getLaunchesData(this.selectedOption);
   }
 
   openDatepicker() {
     this.pickerDirective.open();
+  }
+
+  onSelectedTheme(theme: string) {
+    this.selectedTheme = theme;
+    if (this.selectedTheme === 'dark') {
+      this.themeService.toggleDark();
+      console.log('in onchanges');
+    } else {
+      this.themeService.toggleLight();
+      console.log('in onchanges');
+    }
   }
 }

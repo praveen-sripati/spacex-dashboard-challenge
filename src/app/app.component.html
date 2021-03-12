@@ -1,5 +1,5 @@
-<div>
-  <app-spx-header></app-spx-header>
+<div class="app-container">
+  <app-spx-header [selectedThemeInner]="selectedTheme" (selectedTheme)="onSelectedTheme($event)"></app-spx-header>
   <section class="table-container">
     <div class="filters-container mb-3">
       <div class="date-picker-container">

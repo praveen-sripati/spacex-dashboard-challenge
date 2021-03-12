@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
   selector: 'app-spx-header',
@@ -6,10 +6,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./spx-header.component.scss']
 })
 export class SpxHeaderComponent implements OnInit {
+  @Input() selectedThemeInner;
+  @Output() selectedTheme = new EventEmitter<string>()
 
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  onSelectedTheme(theme: string) {
+    this.selectedTheme.emit(theme);
+    sessionStorage.setItem('selectedTheme', theme);
   }
 
 }

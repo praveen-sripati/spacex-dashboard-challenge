@@ -35,14 +35,24 @@
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: nowrap;
+        color: var(--text-color);
       }
-      .details-link-icons {
+      p {
+        color: var(--text-color);
+      }
+      .details-link-icons ::ng-deep {
+        svg {
+          line, polygon, circle, ellipse {
+            stroke: var(--text-color);
+          }
+        }
       }
       ::ng-deep .heading-right-loader {
         display: flex;
         flex-direction: column;
         span {
           border-radius: 6px;
+          color: var(--text-color);
           &:first-child {
             height: 22px;
             width: 310px;
@@ -58,6 +68,9 @@
   }
   .details-description {
     margin-bottom: 15px;
+    p {
+      color: var(--text-color);
+    }
     ::ng-deep .description-loader {
       display: flex;
       flex-direction: column;
@@ -79,6 +92,9 @@
   .detail-fields {
     padding: 10px 0;
     border-bottom: 1px solid $gray;
+    p {
+      color: var(--text-color);
+    }
     &:last-of-type {
       padding-bottom: 0;
       border-bottom: none;
@@ -110,5 +126,6 @@
     right: 0;
     font-size: 20px;
     cursor: pointer;
+    color: var(--text-color);
   }
 }

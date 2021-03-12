@@ -7,11 +7,14 @@
   &:focus {
     outline: none;
   }
+  background-color: var(--primary-color);
   padding: 3px 10px;
   padding-left: 0;
   font-size: 16px;
   font-weight: 600;
+
   i {
+    color: var(--text-color);
     &:first-child {
       margin-bottom: 3px;
       margin-right: 2px;
@@ -23,13 +26,21 @@
   }
 }
 
+::ng-deep .mat-button-wrapper {
+  color: var(--text-color);
+  i {
+    color: var(--text-color);
+  }
+}
+
 ::ng-deep .simple-select-menu {
   button:focus {
     outline: none;
   }
   &.mat-menu-panel {
-    border: 1px solid $gray;
-    box-shadow: 0 0 3px 0px $gray;
+    background: var(--cdk-element-color);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 0 3px 0px var(--box-shadow-color);
   }
   .mat-menu-content {
     &:not(:empty) {
@@ -37,9 +48,10 @@
       padding-bottom: 0;
     }
     .mat-menu-item {
+      color: var(--text-color);
       line-height: 45px;
       height: 45px;
-      font-family: 'Nunito Sans', 'Helvetica Neue, Helvetica, Arial', sans-serif;
+      font-family: "Nunito Sans", "Helvetica Neue, Helvetica, Arial", sans-serif;
       font-weight: 600;
     }
   }

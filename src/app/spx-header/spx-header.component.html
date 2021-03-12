@@ -2,4 +2,6 @@
   <a href="#">
     <img src="../../assets/images/logo.svg" alt="SpaceX logo" />
   </a>
+  <i *ngIf="selectedThemeInner === 'light'" class="material-icons" (click)="onSelectedTheme('dark')"> dark_mode </i>
+  <i *ngIf="selectedThemeInner === 'dark'" class="material-icons" (click)="onSelectedTheme('light')"> light_mode </i>
 </header>
